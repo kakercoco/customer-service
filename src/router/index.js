@@ -38,94 +38,120 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/example',
+    path: '/home',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
+    redirct: './home/index',
+    meta: { title: '首页', icon: 'home' },
+    name: 'home',
+    alwaysShow: true,
     children: [
       {
         path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        name: '主页',
+        meta: { title: '主页' },
+        component: () => import('@/views/home/index')
       }
     ]
   },
 
   {
-    path: '/nested',
+    path: '/knowledge',
     component: Layout,
-    redirect: '/nested/menu1',
-    name: 'nested',
-    meta: {
-      title: 'nested',
-      icon: 'nested'
-    },
+    redirct: './knowledge/repository',
+    meta: { title: '知识库', icon: 'knowledge' },
+    name: 'knowledge',
+    alwaysShow: true,
     children: [
       {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'menu1',
-        meta: { title: 'menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'menu1-1',
-            meta: { title: 'menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'menu1-2',
-            meta: { title: 'menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'menu1-2-1',
-                meta: { title: 'menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'menu1-2-2',
-                meta: { title: 'menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'menu1-3',
-            meta: { title: 'menu1-3' }
-          }
-        ]
-      },
+        path: 'repository',
+        name: 'repository',
+        meta: { title: '知识库' },
+        component: () => import('@/views/knowledge/repository')
+      }
+    ]
+  },
+
+  {
+    path: '/work',
+    component: Layout,
+    redirct: './work/order',
+    meta: { title: '工单管理', icon: 'worker' },
+    name: 'work',
+    alwaysShow: true,
+    children: [
       {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: { title: 'menu2' }
+        path: 'order',
+        name: 'order',
+        meta: { title: '工单管理' },
+        component: () => import('@/views/work-order/index')
+      }
+    ]
+  },
+
+  {
+    path: '/count',
+    component: Layout,
+    redirct: './count/index',
+    meta: { title: '统计报表', icon: 'count' },
+    name: 'count',
+    alwaysShow: true,
+    children: [
+      {
+        path: 'index',
+        name: 'index',
+        meta: { title: '统计报表' },
+        component: () => import('@/views/count/index')
+      }
+    ]
+  },
+
+  {
+    path: '/contract',
+    component: Layout,
+    redirct: './contract/index',
+    meta: { title: '客户合同', icon: 'contract' },
+    name: 'contract',
+    alwaysShow: true,
+    children: [
+      {
+        path: 'index',
+        name: 'contract',
+        meta: { title: '客户合同' },
+        component: () => import('@/views/contract/index')
+      }
+    ]
+  },
+
+  {
+    path: '/produce',
+    component: Layout,
+    redirct: './produce/service',
+    meta: { title: '产品服务', icon: 'produce' },
+    name: 'service',
+    alwaysShow: true,
+    children: [
+      {
+        path: 'service',
+        name: 'service',
+        meta: { title: '产品服务' },
+        component: () => import('@/views/produce/service')
+      }
+    ]
+  },
+
+  {
+    path: '/setting',
+    component: Layout,
+    redirct: './setting/index',
+    meta: { title: '系统设置', icon: 'setting' },
+    name: 'setting',
+    alwaysShow: true,
+    children: [
+      {
+        path: 'index',
+        name: 'index',
+        meta: { title: '系统设置' },
+        component: () => import('@/views/setting/index')
       }
     ]
   },
