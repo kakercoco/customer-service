@@ -142,16 +142,16 @@ export const constantRouterMap = [
   {
     path: '/setting',
     component: Layout,
-    redirct: './setting/index',
+    redirct: './setting/IM',
     meta: { title: '系统设置', icon: 'setting' },
     name: 'setting',
     alwaysShow: true,
     children: [
       {
-        path: 'index',
-        name: 'index',
-        meta: { title: '系统设置' },
-        component: () => import('@/views/setting/index')
+        path: 'IM',
+        name: 'IM',
+        meta: { title: '客服聊天' },
+        component: () => import('@/views/setting/IM')
       }
     ]
   },

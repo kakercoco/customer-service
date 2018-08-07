@@ -10,6 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  color: #333;
 }
 
 label {
@@ -28,7 +29,9 @@ html {
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 a,
@@ -75,4 +78,24 @@ a:hover {
 
 .app-container {
   padding: 20px;
+}
+
+.fr {
+  float: right;
+}
+
+.fl {
+  float: left;
+}
+.tar{
+  text-align: right;
+}
+.tac{
+  text-align: center;
+}
+i,em{
+  font-style: normal;
+}
+li,ol{
+  list-style: none;
 }
