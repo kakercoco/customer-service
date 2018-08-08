@@ -2,7 +2,7 @@
  * @Author: kaker.xutianxing 
  * @Date: 2018-08-07 09:36:29 
  * @Last Modified by: kaker.xutianxing
- * @Last Modified time: 2018-08-07 19:51:27
+ * @Last Modified time: 2018-08-08 16:40:47
  */
 <template>
   <div class="IM">
@@ -118,8 +118,31 @@
       <p class="btn">
         <el-button type="primary" size="small">接入</el-button>
         <el-button type="primary" size="small">请求协助</el-button>
-        <el-button type="primary" size="small">设置状态</el-button>
+        <el-button type="primary" size="small" @click="dialogSetting = true">设置状态</el-button>
       </p>
+      <el-dialog title="设置"  :visible.sync="dialogSetting"  width="560px"  :before-close="settingClose">
+        <el-form :model="settingForm" class="setting-from" :rules="settingFormRules">
+          <el-form-item label="客服名称：" :label-width="formLabelWidth" prop="name">
+            <el-input v-model="settingForm.name" auto-complete="off" placeholder="请输入客服名称"></el-input>
+          </el-form-item>
+          <el-form-item label="头像：" :label-width="formLabelWidth">
+            <el-upload
+              class="avatar-uploader"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              <div slot="tip" class="el-upload__tip">支持jpg，jpeg，png，大小不超过100KB</div>
+            </el-upload>
+          </el-form-item>
+        </el-form>
+        <span slot="footer">
+          <el-button @click="settingClose">取 消</el-button>
+          <el-button type="primary" @click="dialogSetting = false">确 定</el-button>
+        </span>
+      </el-dialog>
       <div class="list">
         <div class="keywords-input">
           <el-input placeholder="请输入内容" v-model="keywords" prefix-icon="el-icon-search">
@@ -192,8 +215,20 @@ export default {
   name: 'IM',
   data() {
     return {
-      keywords: '',
-      textarea: '',
+      keywords: '', // 常用语关键词
+      textarea: '', // 文本内容
+      dialogSetting: false, // 设置状态dialog
+      formLabelWidth: '100px',
+      imageUrl: '', // 用户头像
+      settingForm: {
+        name: ''
+      },
+      settingFormRules: {
+        name: [
+          { required: true, message: '请输入客服名称', trigger: 'blur' },
+          { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur' }
+        ]
+      },
       websock: null,
       questionTree: [
         {
@@ -249,8 +284,27 @@ export default {
     handleNodeClick(data) {
       console.log(data)
     },
+    settingClose() {
+      this.dialogSetting = false
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === 'image/jpeg'
+      const isLt2M = file.size / 1024 / 1024 < 2
+
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!')
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!')
+      }
+      return isJPG && isLt2M
+    },
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+    },
     initWebSocket() { // 初始化weosocket
-      const wsuri = 'ws://127.0.0.1:8080'
+      //const wsuri = 'ws://127.0.0.1:8080'
+      const wsuri = 'ws://192.168.40.180:3838'
       this.websock = new WebSocket(wsuri)
       this.websock.onmessage = this.websocketonmessage
       this.websock.onopen = this.websocketonopen
@@ -277,10 +331,10 @@ export default {
     }
   },
   mounted() {
-    this.initWebSocket()
+    // this.initWebSocket()
   },
   destroyed() {
-    this.websock.close() // 离开路由之后断开websocket连接
+    // this.websock.close() // 离开路由之后断开websocket连接
   }
 }
 </script>
@@ -349,6 +403,34 @@ export default {
     .list {
       height: calc(100% - 40px);
       overflow: auto;
+    }
+    .setting-from{
+      .el-input{
+        width: 300px;
+      }
+      & /deep/ .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+      }
+      .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 124px;
+        height: 124px;
+        line-height: 124px;
+        text-align: center;
+      }
+      .avatar {
+        width: 124px;
+        height: 124px;
+        display: block;
+      }
     }
   }
   .contact-list {

@@ -152,6 +152,12 @@ export const constantRouterMap = [
         name: 'IM',
         meta: { title: '客服聊天' },
         component: () => import('@/views/setting/IM')
+      },
+      {
+        path: 'index',
+        name: 'userIM',
+        meta: { title: '用户聊天' },
+        component: () => import('@/views/setting/index')
       }
     ]
   },
