@@ -50,6 +50,18 @@ export const constantRouterMap = [
         name: '主页',
         meta: { title: '主页' },
         component: () => import('@/views/home/index')
+      },
+      {
+        path: 'calendar',
+        name: 'calendar',
+        meta: { title: '跟进日历' },
+        component: () => import('@/views/home/calendar')
+      },
+      {
+        path: 'selfPerformance',
+        name: 'selfPerformance',
+        meta: { title: '个人业绩' },
+        component: () => import('@/views/home/selfPerformance')
       }
     ]
   },
@@ -172,10 +184,10 @@ export const constantRouterMap = [
         component: () => import('@/views/setting/emailSend')
       },
       {
-        path: 'calendar',
-        name: 'calendar',
-        meta: { title: '跟进日历' },
-        component: () => import('@/views/setting/calendar')
+        path: 'serviceInfor',
+        name: 'serviceInfor',
+        meta: { title: '服务信息' },
+        component: () => import('@/views/setting/serviceInfor')
       }
     ]
   },
