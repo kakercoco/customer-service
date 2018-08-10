@@ -304,10 +304,10 @@ export default {
     },
     pushChat() {
       var speaktoDto = {
-        "dialogId": '38',
-        "content": this.textarea
+        'dialogId': '38',
+        'content': this.textarea
       }
-      const wm = this.Global.socketCmd("SpeakToDialog", speaktoDto)
+      const wm = this.Global.socketCmd('SpeakToDialog', speaktoDto)
       window.webSocket.send(wm)
     }
   },

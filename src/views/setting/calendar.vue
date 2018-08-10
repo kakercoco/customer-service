@@ -19,10 +19,16 @@
         <span>周六</span>
       </p>
       <ul class="month">
-        <li v-for="(item, index) in 8 " :key="index">
-          <h4>1</h4>
-          <el-button size="mini">更换客服</el-button>
-          <el-button size="mini">更换客服</el-button>
+        <li v-for="(item, index) in 31 " :key="index">
+          <div :class="{today: index ===25, 'active': index === 10}">
+            <h4>{{index+1}}</h4>
+            <p v-if="index<26">
+              <span>更换客服</span>
+              <span>指派跟进</span>
+              <span>合同洽谈</span>
+              <span>下次跟进</span>
+            </p>
+          </div>
         </li>
       </ul>
     </div>
@@ -59,6 +65,7 @@ export default {
     height: 100%;
     float: left;
     background-color: #fff;
+    overflow: auto;
   }
   .right{
     width: calc(100% - 1110px);
@@ -74,28 +81,75 @@ export default {
       font-weight: bold;
       color: #c6e2ff;
       margin: 0 40px;
+      cursor: pointer;
+      &:hover{
+        color: #6699ff;
+      }
     }
   }
   .week{
     width: 100%;
     height: 35px;
     line-height: 35px;
+    padding: 0 10px;
     span{
       float: left;
       height: 100%;
       text-align: center;
-      width: 14.2%;
+      width: 14.25%;
       font-weight: bold;
       color: #868686;
     }
   }
   .month{
+    padding: 0 10px;
     li{
-      width: 140px;
+      width: 14.25%;
       height: 120px;
       float: left;
-      box-shadow: 0 0 10px #6699ff;
-      margin-right: 10px;
+      padding: 0 5px;
+      margin-bottom: 15px;
+      div{
+        box-shadow: 0 0 10px #6699ff;
+        height: 100%;
+        text-align: center;
+        &.today{
+          background-color: #ff9900;
+          h4{
+            background-color: #ff9900;
+          }
+        }
+        &.active{
+          background-color: #5986df;
+          h4{
+            background-color: #5986df;
+          }
+        }
+        h4{
+          background-color: #6699ff;
+          height: 35px;
+          line-height: 35px;
+          color: #fff;
+          font-size: 30px;
+        }
+        p{
+          span{
+            width: 60px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            border: 1px solid #eee;
+            border-radius: 3px;
+            cursor: pointer;
+            box-shadow: 0 0 5px #ddd;
+            display: inline-block;
+            margin-top: 10px;
+            background: #fff;
+          }
+        }
+      }
     }
   }
 }
