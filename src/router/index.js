@@ -150,7 +150,7 @@ export const constantRouterMap = [
       {
         path: 'IM',
         name: 'IM',
-        meta: { title: '客服聊天' },
+        meta: { title: '在线客服' },
         component: () => import('@/views/setting/IM')
       },
       {
@@ -158,6 +158,24 @@ export const constantRouterMap = [
         name: 'userIM',
         meta: { title: '用户聊天' },
         component: () => import('@/views/setting/index')
+      },
+      {
+        path: 'emailTemplate',
+        name: 'emailTemplate',
+        meta: { title: '邮件模板' },
+        component: () => import('@/views/setting/emailTemplate')
+      },
+      {
+        path: 'emailSend',
+        name: 'emailSend',
+        meta: { title: '编写邮件' },
+        component: () => import('@/views/setting/emailSend')
+      },
+      {
+        path: 'calendar',
+        name: 'calendar',
+        meta: { title: '跟进日历' },
+        component: () => import('@/views/setting/calendar')
       }
     ]
   },

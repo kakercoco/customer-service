@@ -13,8 +13,8 @@ export default {
     // 从cookie中获取用户信息,是登录状态则可以进行webSocket重连
     const userMessage = Cookies.get('Admin-Token')
     if(userMessage){
-      const infor = this.sockteInfor('xutianxing', 1, 'token')
-      const wm = this.socketCmd('PlatformLogin', infor)
+      const infor = this.Global.sockteInfor('xutianxing', 1, 'token')
+      const wm = this.Global.socketCmd('PlatformLogin', infor)
       this.Global.connectSocket('ws://192.168.40.180:3838', wm)
     }
   }

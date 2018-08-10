@@ -2,7 +2,7 @@
  * @Author: kaker.xutianxing 
  * @Date: 2018-08-07 09:36:29 
  * @Last Modified by: kaker.xutianxing
- * @Last Modified time: 2018-08-08 16:40:47
+ * @Last Modified time: 2018-08-09 17:23:43
  */
 <template>
   <div class="IM">
@@ -108,7 +108,7 @@
             <el-input resize="none" type="textarea" :rows="5" placeholder="请输入内容" v-model="textarea">
             </el-input>
             <p class="tar">
-              <el-button type="primary" size="small">发送</el-button>
+              <el-button type="primary" size="small" @click="pushChat()">发送</el-button>
             </p>
           </div>
         </div>
@@ -302,36 +302,18 @@ export default {
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw)
     },
-    initWebSocket() { // 初始化weosocket
-      //const wsuri = 'ws://127.0.0.1:8080'
-      const wsuri = 'ws://192.168.40.180:3838'
-      this.websock = new WebSocket(wsuri)
-      this.websock.onmessage = this.websocketonmessage
-      this.websock.onopen = this.websocketonopen
-      // this.websock = this.websocket
-      this.websock.onclose = this.websocketclose
-    },
-    websocketonopen() { // 连接建立之后执行send方法发送数据
-      const actions = {
-        'test': '12345'
+    pushChat() {
+      var speaktoDto = {
+        "dialogId": '38',
+        "content": this.textarea
       }
-      this.websocketsend(JSON.stringify(actions))
-    },
-    websocket() { // 连接建立失败重连
-      this.initWebSocket()
-    },
-    websocketonmessage(e) { // 数据接收
-      // const redata = JSON.parse(e.data)
-    },
-    websocketsend(Data) { // 数据发送
-      this.websock.send(Data)
-    },
-    websocketclose(e) { // 关闭
-      console.log('断开连接', e)
+      const wm = this.Global.socketCmd("SpeakToDialog", speaktoDto)
+      window.webSocket.send(wm)
     }
   },
   mounted() {
-    // this.initWebSocket()
+    // window.webSocket.send('123')
+    window.webSocket.joinDialog()
   },
   destroyed() {
     // this.websock.close() // 离开路由之后断开websocket连接

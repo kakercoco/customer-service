@@ -18,7 +18,7 @@ class socket {
       'cmd': cmd,
       'content': JSON.stringify(infor)
     }
-    return wm
+    return JSON.stringify(wm)
   }
   connectSocket(host, wm) {
     window.webSocket = new WebSocket(host)
@@ -36,17 +36,24 @@ class socket {
       const data = JSON.parse(evt.data)
       switch (data.cmd) {
         case 'LoginSuccess':
-          alert('LoginSuccess')
-          window.webSocket.createDialog()
+          console.log('LoginSuccess')
+          // window.webSocket.createDialog()
           break
         case 'CreateDialogSuccess':
-          alert('CreateDialogSuccess')
+          console.log('CreateDialogSuccess')
           break
       }
     }
     window.webSocket.createDialog = () => {
       const wm = {
         'cmd': 'CreateDialog'
+      }
+      window.webSocket.send(JSON.stringify(wm))
+    }
+    window.webSocket.joinDialog = () => {
+      const wm = {
+        'cmd': 'JoinDialog',
+        'content': '38'
       }
       window.webSocket.send(JSON.stringify(wm))
     }

@@ -15,6 +15,10 @@ import store from './store'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
 import Global from '@/utils/global'
 
 Vue.use(ElementUI, { locale })
