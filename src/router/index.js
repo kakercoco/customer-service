@@ -62,23 +62,53 @@ export const constantRouterMap = [
         name: 'selfPerformance',
         meta: { title: '个人业绩' },
         component: () => import('@/views/home/selfPerformance')
+      },
+      {
+        path: 'groupPerformance',
+        name: 'groupPerformance',
+        meta: { title: '组内业绩' },
+        component: () => import('@/views/home/groupPerformance')
       }
     ]
   },
 
   {
-    path: '/knowledge',
+    path: '/remind',
     component: Layout,
-    redirct: './knowledge/repository',
-    meta: { title: '知识库', icon: 'knowledge' },
-    name: 'knowledge',
+    redirct: './remind/repository',
+    meta: { title: '提醒', icon: 'knowledge' },
+    name: 'remind',
     alwaysShow: true,
     children: [
       {
-        path: 'repository',
-        name: 'repository',
-        meta: { title: '知识库' },
-        component: () => import('@/views/knowledge/repository')
+        path: 'config',
+        name: 'config',
+        meta: { title: '配置表' },
+        component: () => import('@/views/remind/config')
+      },
+      {
+        path: 'emailList',
+        name: 'emailList',
+        meta: { title: '邮件模板列表' },
+        component: () => import('@/views/remind/emailList')
+      },
+      {
+        path: 'emailTemplate',
+        name: 'emailTemplate',
+        meta: { title: '邮件模板' },
+        component: () => import('@/views/remind/emailTemplate')
+      },
+      {
+        path: 'emailSend',
+        name: 'emailSend',
+        meta: { title: '编写邮件' },
+        component: () => import('@/views/remind/emailSend')
+      },
+      {
+        path: 'draftBox',
+        name: 'draftBox',
+        meta: { title: '草稿箱' },
+        component: () => import('@/views/remind/draftBox')
       }
     ]
   },
@@ -170,18 +200,6 @@ export const constantRouterMap = [
         name: 'userIM',
         meta: { title: '用户聊天' },
         component: () => import('@/views/setting/index')
-      },
-      {
-        path: 'emailTemplate',
-        name: 'emailTemplate',
-        meta: { title: '邮件模板' },
-        component: () => import('@/views/setting/emailTemplate')
-      },
-      {
-        path: 'emailSend',
-        name: 'emailSend',
-        meta: { title: '编写邮件' },
-        component: () => import('@/views/setting/emailSend')
       },
       {
         path: 'serviceInfor',
