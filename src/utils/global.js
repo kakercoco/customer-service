@@ -2,6 +2,9 @@ class socket {
   constructor(name) {
     this.name = name
   }
+  test() {
+    alert('test')
+  }
   sockteInfor(userName, role, token) {
     const infor = {
       'userName': userName,

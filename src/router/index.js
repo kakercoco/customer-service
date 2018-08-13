@@ -114,18 +114,25 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/work',
+    path: '/customer',
     component: Layout,
-    redirct: './work/order',
-    meta: { title: '工单管理', icon: 'worker' },
-    name: 'work',
+    redirct: './customer/customerList',
+    meta: { title: '客户列表', icon: 'worker' },
+    name: 'customer',
     alwaysShow: true,
     children: [
       {
-        path: 'order',
-        name: 'order',
-        meta: { title: '工单管理' },
-        component: () => import('@/views/work-order/index')
+        path: 'customerList',
+        name: 'customerList',
+        meta: { title: '客户列表' },
+        component: () => import('@/views/customer/customerList')
+      },
+      {
+        path: 'customerInfor',
+        name: 'customerInfor',
+        meta: { title: '客户信息详情' },
+        component: () => import('@/views/customer/customerInfor'),
+        hidden: true
       }
     ]
   },
