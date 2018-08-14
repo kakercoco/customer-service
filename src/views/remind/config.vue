@@ -145,7 +145,9 @@ export default {
 
 <style  rel='stylesheet/scss' lang='scss' scoped >
 .config{
-
+  padding: 10px;
+  overflow: auto;
+  height: 100%;
 }
 .email-dialog{
   .remind-type{

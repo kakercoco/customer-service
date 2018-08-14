@@ -14,7 +14,7 @@ import Layout from '../views/layout/Layout'
 * alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
 *                                if not set alwaysShow, only more than one route under the children
 *                                it will becomes nested mode, otherwise not show the root menu
-* redirect: noredirect           if `redirect:noredirect` will no redirct in the breadcrumb
+* redirect: noredirect           if `redirect:noredirect` will no redirect in the breadcrumb
 * name:'router-name'             the name is used by <keep-alive> (must set!!!)
 * meta : {
     title: 'title'               the name show in submenu and breadcrumb (recommend set)
@@ -40,7 +40,7 @@ export const constantRouterMap = [
   {
     path: '/home',
     component: Layout,
-    redirct: './home/index',
+    redirect: '/home/index',
     meta: { title: '首页', icon: 'home' },
     name: 'home',
     alwaysShow: true,
@@ -75,7 +75,7 @@ export const constantRouterMap = [
   {
     path: '/remind',
     component: Layout,
-    redirct: './remind/repository',
+    redirect: '/remind/config',
     meta: { title: '提醒', icon: 'knowledge' },
     name: 'remind',
     alwaysShow: true,
@@ -116,7 +116,7 @@ export const constantRouterMap = [
   {
     path: '/customer',
     component: Layout,
-    redirct: './customer/customerList',
+    redirect: '/customer/customerList',
     meta: { title: '客户列表', icon: 'worker' },
     name: 'customer',
     alwaysShow: true,
@@ -131,8 +131,29 @@ export const constantRouterMap = [
         path: 'customerInfor',
         name: 'customerInfor',
         meta: { title: '客户信息详情' },
-        component: () => import('@/views/customer/customerInfor'),
-        hidden: true
+        component: () => import('@/views/customer/customerInfor')
+        // hidden: true
+      },
+      {
+        path: 'customerInforDetail',
+        name: 'customerInforDetail',
+        meta: { title: '客户信息详细' },
+        component: () => import('@/views/customer/customerInforDetail')
+        // hidden: true
+      },
+      {
+        path: 'companyAttestation',
+        name: 'companyAttestation',
+        meta: { title: '公司认证' },
+        component: () => import('@/views/customer/companyAttestation')
+        // hidden: true
+      },
+      {
+        path: 'companyInfor',
+        name: 'companyInfor',
+        meta: { title: '公司资料' },
+        component: () => import('@/views/customer/companyInfor')
+        // hidden: true
       }
     ]
   },
@@ -140,7 +161,7 @@ export const constantRouterMap = [
   {
     path: '/count',
     component: Layout,
-    redirct: './count/index',
+    redirect: '/count/index',
     meta: { title: '统计报表', icon: 'count' },
     name: 'count',
     alwaysShow: true,
@@ -157,7 +178,7 @@ export const constantRouterMap = [
   {
     path: '/contract',
     component: Layout,
-    redirct: './contract/index',
+    redirect: '/contract/index',
     meta: { title: '客户合同', icon: 'contract' },
     name: 'contract',
     alwaysShow: true,
@@ -174,7 +195,7 @@ export const constantRouterMap = [
   {
     path: '/produce',
     component: Layout,
-    redirct: './produce/service',
+    redirect: '/produce/service',
     meta: { title: '产品服务', icon: 'produce' },
     name: 'service',
     alwaysShow: true,
@@ -191,7 +212,7 @@ export const constantRouterMap = [
   {
     path: '/setting',
     component: Layout,
-    redirct: './setting/IM',
+    redirect: '/setting/IM',
     meta: { title: '系统设置', icon: 'setting' },
     name: 'setting',
     alwaysShow: true,

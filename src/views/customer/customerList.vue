@@ -2,7 +2,7 @@
  * @Author: kaker.xutianxing 
  * @Date: 2018-08-06 17:40:59 
  * @Last Modified by: kaker.xutianxing
- * @Last Modified time: 2018-08-13 17:55:40
+ * @Last Modified time: 2018-08-14 16:10:08
  */
 <template>
   <div class="customer-list">
@@ -38,57 +38,12 @@
           <el-table :data="serviceData" style="width: 100%;">
             <el-table-column prop="name" align="center" label="客户编号"></el-table-column>
             <el-table-column prop="name" align="center" label="公司名称"></el-table-column>
-            <el-table-column prop="name" align="center" label="投诉标识"></el-table-column>
-            <el-table-column prop="name" align="center" label="客户等级"></el-table-column>
-            <el-table-column prop="name" align="center" label="负责客服"></el-table-column>
-            <el-table-column prop="name" align="center" label="负责商务"></el-table-column>
-            <el-table-column prop="name" align="center" label="操作" width="300">
-              <template slot-scope="scoped">
-                <el-button type="primary" size="mini">查看详情</el-button>
-                <el-button type="primary" size="mini">分配客户</el-button>
-                <el-button type="primary" size="mini" @click="feedbackDialog = true">投诉标识</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-tab-pane>
-      </el-tabs>
-    </div>
-    <div class="mt-20">
-      <p class="search">
-        <el-select v-model="selectedValue" placeholder="请选择">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
-        <el-input v-model="searchKey" placeholder="请输入内容"></el-input>
-        <el-button type="primary">搜索</el-button>
-        <el-button type="primary" class="fr" @click="taskDialog = true">任务知识</el-button>
-      </p>
-      <el-tabs type="border-card">
-        <el-tab-pane label="客户信息">
-          <el-table :data="inforData" style="width: 100%;">
-            <el-table-column prop="name" align="center" label="客户编号"></el-table-column>
-            <el-table-column prop="name" align="center" label="公司名称"></el-table-column>
-            <el-table-column prop="name" align="center" label="投诉标识"></el-table-column>
-            <el-table-column prop="name" align="center" label="客户等级"></el-table-column>
-            <el-table-column prop="name" align="center" label="负责客服"></el-table-column>
-            <el-table-column prop="name" align="center" label="负责商务"></el-table-column>
-            <el-table-column prop="name" align="center" label="操作" width="300">
-              <template slot-scope="scoped">
-                <el-button type="primary" size="mini">查看详情</el-button>
-                <el-button type="primary" size="mini">分配客户</el-button>
-                <el-button type="primary" size="mini" @click="feedbackDialog = true">投诉标识</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-tab-pane>
-        <el-tab-pane label="服务概况">
-          <el-table :data="serviceData" style="width: 100%;">
-            <el-table-column prop="name" align="center" label="客户编号"></el-table-column>
-            <el-table-column prop="name" align="center" label="公司名称"></el-table-column>
-            <el-table-column prop="name" align="center" label="投诉标识"></el-table-column>
-            <el-table-column prop="name" align="center" label="客户等级"></el-table-column>
-            <el-table-column prop="name" align="center" label="负责客服"></el-table-column>
-            <el-table-column prop="name" align="center" label="负责商务"></el-table-column>
+            <el-table-column prop="name" align="center" label="是否激活"></el-table-column>
+            <el-table-column prop="name" align="center" label="本案是否成功"></el-table-column>
+            <el-table-column prop="name" align="center" label="网站是否上线"></el-table-column>
+            <el-table-column prop="name" align="center" label="资料通过审核"></el-table-column>
+            <el-table-column prop="name" align="center" label="关键词达标"></el-table-column>
+            <el-table-column prop="name" align="center" label="到期还有几天"></el-table-column>
             <el-table-column prop="name" align="center" label="操作" width="300">
               <template slot-scope="scoped">
                 <el-button type="primary" size="mini">查看详情</el-button>
@@ -131,7 +86,7 @@
         <el-button size='small' type='primary'>上传附件</el-button>
         <div slot='tip' class='el-upload__tip'>支持word、excel、pdf、ppt、zip、rar等文件格式</div>
       </el-upload>
-      <ul class='file-list'>
+      <ul class='file-list' v-if="fileList.length > 0">
         <li v-for='(item,index) in fileList' :key='index'>
           <span>{{item.name}}</span>
           <a :href='item.url'><el-button type="primary" size="mini" class="fr">下载</el-button></a>
