@@ -2,7 +2,7 @@
  * @Author: kaker.xutianxing 
  * @Date: 2018-08-13 17:35:20 
  * @Last Modified by: kaker.xutianxing
- * @Last Modified time: 2018-08-14 19:16:55
+ * @Last Modified time: 2018-08-15 14:24:44
  */
 <template>
   <div class="customer-infor">
@@ -104,7 +104,11 @@
           </el-table-column>
         </el-table>
       </el-tab-pane>
-      <el-tab-pane label="服务信息">角色管理</el-tab-pane>
+      <el-tab-pane label="服务信息">
+        <div>
+           
+        </div>
+      </el-tab-pane>
       <el-tab-pane label="维护工单">定时任务补偿</el-tab-pane>
       <el-tab-pane label="跟进记录">定时任务补偿</el-tab-pane>
     </el-tabs>
