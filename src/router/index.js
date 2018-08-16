@@ -154,6 +154,20 @@ export const constantRouterMap = [
         meta: { title: '公司资料' },
         component: () => import('@/views/customer/companyInfor')
         // hidden: true
+      },
+      {
+        path: 'totalIncome',
+        name: 'totalIncome',
+        meta: { title: '收益总览' },
+        component: () => import('@/views/customer/totalIncome')
+        // hidden: true
+      },
+      {
+        path: 'maintainOrderInsert',
+        name: 'maintainOrderInsert',
+        meta: { title: '新增维护工单' },
+        component: () => import('@/views/customer/maintainOrderInsert')
+        // hidden: true
       }
     ]
   },

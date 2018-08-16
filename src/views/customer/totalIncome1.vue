@@ -137,155 +137,155 @@
   </div>
 </template>
 <script>
-import echarts from "echarts";
+import echarts from 'echarts'
 export default {
-  name: "total",
+  name: 'total',
   data() {
     return {
-      userStatus: 1, //用户在线状态的显示效果
-      firstLi: 1, //第一个li的tab
-      secendLi: 1, //第二个li的tab
-      thirdLi: 1, //第三个li的tab
-      fourLi: 1 //第四个li的tab
-    };
+      userStatus: 1, // 用户在线状态的显示效果
+      firstLi: 1, // 第一个li的tab
+      secendLi: 1, // 第二个li的tab
+      thirdLi: 1, // 第三个li的tab
+      fourLi: 1 // 第四个li的tab
+    }
   },
   mounted() {
-    this.drawLine();
+    this.drawLine()
   },
   methods: {
     firstTab(val, lv) {
-      this.firstLi = val;
-      this.userStatus = lv;
+      this.firstLi = val
+      this.userStatus = lv
     },
     secendTab(val) {
-      this.secendLi = val;
+      this.secendLi = val
     },
     thirdTab(val) {
-      this.thirdLi = val;
-      let myChart2 = echarts.init(document.getElementById("myChart2"));
+      this.thirdLi = val
+      const myChart2 = echarts.init(document.getElementById('myChart2'))
       myChart2.setOption({
-        color: "#666",
+        color: '#666',
         xAxis: {
-          type: "category",
+          type: 'category',
           data: [
-            "第1周",
-            "第2周",
-            "第3周",
-            "第4周",
-            "第5周",
-            "第6周",
-            "第7周",
-            "第8周",
-            "第9周",
-            "第10周"
+            '第1周',
+            '第2周',
+            '第3周',
+            '第4周',
+            '第5周',
+            '第6周',
+            '第7周',
+            '第8周',
+            '第9周',
+            '第10周'
           ]
         },
         yAxis: {
-          type: "value",
+          type: 'value',
           show: false
         },
         series: [
           {
             data: [10, 0, 5, 1, 0, 0, 13, 0, 8, 1],
-            type: "bar",
+            type: 'bar',
             label: {
               normal: {
                 show: true,
-                position: "top"
+                position: 'top'
               }
             },
-            barWidth: "20px"
+            barWidth: '20px'
           }
         ],
         grid: {
-          left: "5%",
-          right: "3%",
+          left: '5%',
+          right: '3%',
           top: 40,
           bottom: 40
         }
-      });
+      })
     },
     fourTab(val) {
-      this.fourLi = val;
-      let myChart3 = echarts.init(document.getElementById("myChart3"));
+      this.fourLi = val
+      const myChart3 = echarts.init(document.getElementById('myChart3'))
       myChart3.setOption({
-        color: "#bcedb9",
+        color: '#bcedb9',
         xAxis: {
-          type: "value",
+          type: 'value',
           show: false
         },
         yAxis: {
-          type: "category",
-          data: ["广州", "深圳", "上海"]
+          type: 'category',
+          data: ['广州', '深圳', '上海']
         },
         series: [
           {
             data: [3, 1, 5],
-            type: "bar",
+            type: 'bar',
             label: {
               normal: {
                 show: true,
-                position: "right",
-                color: "#666"
+                position: 'right',
+                color: '#666'
               }
             },
-            barWidth: "40px"
+            barWidth: '40px'
           }
         ],
         grid: {
-          left: "10%",
-          right: "10%",
+          left: '10%',
+          right: '10%',
           top: 40,
           bottom: 40
         }
-      });
+      })
     },
     drawLine() {
-      let myChart = echarts.init(document.getElementById("myChart"));
+      const myChart = echarts.init(document.getElementById('myChart'))
       myChart.setOption({
-        color: "#666",
+        color: '#666',
         xAxis: {
-          type: "category",
+          type: 'category',
           data: [
-            "第1周",
-            "第2周",
-            "第3周",
-            "第4周",
-            "第5周",
-            "第6周",
-            "第7周",
-            "第8周",
-            "第9周",
-            "第10周"
+            '第1周',
+            '第2周',
+            '第3周',
+            '第4周',
+            '第5周',
+            '第6周',
+            '第7周',
+            '第8周',
+            '第9周',
+            '第10周'
           ]
         },
         yAxis: {
-          type: "value",
+          type: 'value',
           show: false
         },
         series: [
           {
             data: [0, 0, 3, 1, 0, 0, 13, 0, 9, 1],
-            type: "bar",
+            type: 'bar',
             label: {
               normal: {
                 show: true,
-                position: "top"
+                position: 'top'
               }
             },
-            barWidth: "20px"
+            barWidth: '20px'
           }
         ],
         grid: {
-          left: "5%",
-          right: "3%",
+          left: '5%',
+          right: '3%',
           top: 40,
           bottom: 40
         }
-      });
+      })
     }
   }
-};
+}
 </script>
 <style scoped>
 .total {

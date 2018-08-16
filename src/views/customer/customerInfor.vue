@@ -2,7 +2,7 @@
  * @Author: kaker.xutianxing 
  * @Date: 2018-08-13 17:35:20 
  * @Last Modified by: kaker.xutianxing
- * @Last Modified time: 2018-08-15 14:24:44
+ * @Last Modified time: 2018-08-16 19:44:00
  */
 <template>
   <div class="customer-infor">
@@ -13,8 +13,8 @@
       <el-button type="primary" @click="gotoCompanyInfor">公司资料</el-button>
       <el-button type="primary" @click="getAccountDialog = true">领取客服账号</el-button>
     </p>
-    <el-tabs type="border-card">
-      <el-tab-pane label="客户信息">
+    <el-tabs type="border-card" v-model="activeName">
+      <el-tab-pane label="客户信息" name="first">
         <el-row :gutter="20">
           <el-col :span="6"><div class="customer-infor-li"><span>客户编号：</span><i>阿萨德</i></div></el-col>
           <el-col :span="6"><div class="customer-infor-li"><span>公司名称：</span><i>阿萨德</i></div></el-col>
@@ -79,7 +79,7 @@
           </div>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="合同信息">
+      <el-tab-pane label="合同信息" name="second">
         <el-table :data="compactTableData" style="width:100%;">
           <el-table-column prop="name" label="合同编号" align="center"></el-table-column>
           <el-table-column prop="date" label="合同类型" align="center"></el-table-column>
@@ -104,13 +104,104 @@
           </el-table-column>
         </el-table>
       </el-tab-pane>
-      <el-tab-pane label="服务信息">
-        <div>
-           
+      <el-tab-pane label="服务信息" name="third">
+        <div class="service-message">
+          <p>
+            <el-button type="primary" >查看月报</el-button>
+            <ul class="tag" @click="tagDialog = true">
+              <h5>客户标签:</h5>
+              <li>标签1</li>
+              <li>标签1</li>
+              <li>标签1</li>
+            </ul>
+          </p>
+          <el-dialog title="客户标签" :visible.sync="tagDialog" width="400px">
+            <ul class="tag-dialog clearfix">
+              <li v-for="(item, index) in 6" :key="index" :class="{active: index< 3}">标签1</li>
+            </ul>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="tagDialog = false">取 消</el-button>
+              <el-button type="primary" @click="tagDialog = false">确 定</el-button>
+            </span>
+          </el-dialog>
+          <div class="my-table">
+            <p class="title">
+              <span>订单编号：z-545454545454</span>
+              <span>订单金额：￥4515454.00</span>
+              <span>用户名：士大夫</span>
+              <el-button type="primary" size="small">收益总览</el-button>
+            </p>
+            <el-table :data="serviceTableData" border >
+              <el-table-column  prop="date" align="center" label="产品名称"></el-table-column>
+              <el-table-column  prop="date" align="center" label="剩余数量"></el-table-column>
+              <el-table-column  prop="date" align="center" label="总次数"></el-table-column>
+              <el-table-column  prop="date" align="center" label="操作">
+                <template slot-scope="scope">
+                  <el-button type="primary" size="mini">查看进度</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <p class="title">
+              <span>订单编号：z-545454545454</span>
+              <span>订单金额：￥4515454.00</span>
+              <span>用户名：士大夫</span>
+              <el-button type="primary" size="small">收益总览</el-button>
+            </p>
+            <el-table :data="serviceTableData" border >
+              <el-table-column  prop="date" align="center" label="产品名称"></el-table-column>
+              <el-table-column  prop="date" align="center" label="剩余数量"></el-table-column>
+              <el-table-column  prop="date" align="center" label="总次数"></el-table-column>
+              <el-table-column  prop="date" align="center" label="操作">
+                <template slot-scope="scope">
+                  <el-button type="primary" size="mini">查看进度</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+          <div class="my-echart">
+            <div id="service-echarts"></div>
+          </div>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="维护工单">定时任务补偿</el-tab-pane>
-      <el-tab-pane label="跟进记录">定时任务补偿</el-tab-pane>
+      <el-tab-pane label="维护工单" name="four">
+        <p><el-button type="primary" @click="gotoInsertWorkOrder">添加维护工单</el-button></p>
+        <el-table :data="workOrderTableData">
+          <el-table-column prop="date" label="维护工单编号" align="center"></el-table-column>
+          <el-table-column prop="date" label="合同编号" align="center"></el-table-column>
+          <el-table-column prop="date" label="客户名称" align="center"></el-table-column>
+          <el-table-column prop="date" label="产品" align="center"></el-table-column>
+          <el-table-column prop="date" label="维护工单类型" align="center"></el-table-column>
+          <el-table-column prop="date" label="优先级" align="center"></el-table-column>
+          <el-table-column prop="date" label="创建时间" align="center"></el-table-column>
+          <el-table-column prop="date" label="状态" align="center"></el-table-column>
+          <el-table-column prop="date" label="操作" align="center" width="300px">
+            <template slot-scope="scoped">
+              <el-button type="primary" size="mini" @click="maintainOrderDialog = true">查看</el-button>
+              <el-button type="primary" size="mini">编辑</el-button>
+              <el-button type="primary" size="mini">撤回</el-button>
+              <el-button type="primary" size="mini">催单</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-tab-pane>
+      <el-tab-pane label="跟进记录" name="five">
+        <p>
+          <el-button type="primary">指派更进</el-button>
+          <el-button type="primary" @click="followRemindDialog = true">下次跟进提醒</el-button>
+          <el-button type="primary" @click="followRecordDialog = true">添加跟进记录</el-button>
+        </p>
+        <el-table :data="followRecordTableData">
+          <el-table-column prop="name" label="创建人"></el-table-column>
+          <el-table-column prop="name" label="是否客服"></el-table-column>
+          <el-table-column prop="name" label="跟进目的"></el-table-column>
+          <el-table-column prop="name" label="联系人"></el-table-column>
+          <el-table-column prop="name" label="创建人"></el-table-column>
+          <el-table-column prop="name" label="跟进内容"></el-table-column>
+          <el-table-column prop="name" label="跟进类型"></el-table-column>
+          <el-table-column prop="name" label="跟进方式"></el-table-column>
+          <el-table-column prop="name" label="创建日期"></el-table-column>
+        </el-table>
+      </el-tab-pane>
     </el-tabs>
     <el-dialog :visible.sync="feedbackDialog" width="500px" title="投诉内容">
       <div class="article">
@@ -209,23 +300,192 @@
         </p>
       </div>
     </el-dialog>
+    <el-dialog :visible.sync="maintainOrderDialog" title="查看维护工单" class="maintain-order-dialog" width="1000px">
+      <el-row>
+        <el-col :span="12">
+          <el-col :span="8">客户</el-col>
+          <el-col :span="16">上海珍岛有限公司</el-col>
+        </el-col>
+        <el-col :span="12">
+          <el-col :span="8">负责客服</el-col>
+          <el-col :span="16">张三</el-col>
+        </el-col>
+        <el-col :span="12">
+          <el-col :span="8">扶着商务</el-col>
+          <el-col :span="16">李四</el-col>
+        </el-col>
+        <el-col :span="12">
+          <el-col :span="8">合同</el-col>
+          <el-col :span="16">z-45454787</el-col>
+        </el-col>
+        <el-col :span="12">
+          <el-col :span="8">产品</el-col>
+          <el-col :span="16">域名备案</el-col>
+        </el-col>
+        <el-col :span="12">
+          <el-col :span="8">维护工单类型</el-col>
+          <el-col :span="16">域名转入</el-col>
+        </el-col>
+        <el-col :span="12">
+          <el-col :span="8">维护工单状态</el-col>
+          <el-col :span="16">已完成</el-col>
+        </el-col>
+        <el-col :span="12">
+          <el-col :span="8">优先级</el-col>
+          <el-col :span="16">高</el-col>
+        </el-col>
+        <el-col :span="12">
+          <el-col :span="8">用户名</el-col>
+          <el-col :span="16">zhendao56565</el-col>
+        </el-col>
+        <el-col :span="12">
+          <el-col :span="8">域名</el-col>
+          <el-col :span="16">wwww.sa.com;www.sads.com</el-col>
+        </el-col>
+        <el-col :span="12">
+          <el-col :span="8">执行人</el-col>
+          <el-col :span="16">账务</el-col>
+        </el-col>
+        <el-col :span="12">
+          <el-col :span="8">执行开始时间</el-col>
+          <el-col :span="16">2018-12-12</el-col>
+        </el-col>
+        <el-col :span="12">
+          <el-col :span="8">执行结束时间</el-col>
+          <el-col :span="16">2018-12-12</el-col>
+        </el-col>
+        <el-col :span="12">
+          <el-col :span="8">执行情况说明</el-col>
+          <el-col :span="16">萨拉实打实的理解阿斯兰的感觉阿斯顿</el-col>
+        </el-col>
+        <el-col :span="12">
+          <el-col :span="8">备注</el-col>
+          <el-col :span="16">萨拉实打实的理解阿斯兰的感觉阿斯顿</el-col>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <el-col :span="8">内容</el-col>
+          <el-col :span="16">萨拉实打实的理解阿斯兰的感觉阿斯顿</el-col>
+        </el-col>
+        <el-col :span="24">
+          <ul class="customer-infor-contact clearfix">
+          <li v-for="(item, index) in 3" :key="index">
+            <h3>联系人</h3>
+            <p><span>首要联系人：</span><b>王坤</b></p>
+            <p><span>性别：</span><b>男</b></p>
+            <p><span>手机：</span><b>158978410054</b></p>
+            <p><span>办公电话：</span><b>021-121545545</b></p>
+            <p><span>职务：</span><b>经理</b></p>
+            <p><span>决策权：</span><b>决策人</b></p>
+            <p><span>邮箱：</span><b>614170417@qq.com</b></p>
+          </li>
+        </ul>
+        </el-col>
+        <el-col :span="24">
+          <el-col :span="16">
+            <ul class="file-list">
+              <li>
+                <span>附件1.doc</span>
+                <a href=""><el-button type="primary" size="mini" class="fr">下载</el-button></a>
+              </li>
+              <li>
+                <span>附件1.doc</span>
+                <a href=""><el-button type="primary" size="mini" class="fr">下载</el-button></a>
+              </li>
+            </ul>
+          </el-col>
+        </el-col>
+      </el-row>
+    </el-dialog>
+    <el-dialog :visible.sync="followRecordDialog" title="添加跟进记录">
+      <el-form ref="form" :model="followRecordForm" label-width="120px">
+        <el-form-item label="跟进目的：">
+          <el-select v-model="followRecordForm.region" placeholder="请选择活动区域">
+            <el-option label="区域一" value="shanghai"></el-option>
+            <el-option label="区域二" value="beijing"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="联系人：">
+          <el-select v-model="followRecordForm.region" placeholder="请选择活动区域">
+            <el-option label="区域一" value="shanghai"></el-option>
+            <el-option label="区域二" value="beijing"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="跟进类型：">
+          <el-select v-model="followRecordForm.region" placeholder="请选择活动区域">
+            <el-option label="区域一" value="shanghai"></el-option>
+            <el-option label="区域二" value="beijing"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="跟进方式：">
+          <el-select v-model="followRecordForm.region" placeholder="请选择活动区域">
+            <el-option label="区域一" value="shanghai"></el-option>
+            <el-option label="区域二" value="beijing"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="跟进内容：">
+          <el-col :span="12">
+            <el-input type="textarea"></el-input>
+          </el-col>
+        </el-form-item>
+      </el-form>
+      <span slot="footer">
+        <el-button type="primary">保存</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog :visible.sync="followRemindDialog" title="下次跟进提醒" class="follow-remind-dialog">
+      <el-row>
+        <el-col :span="4">
+          提醒日期
+        </el-col>
+        <el-col :span="20">
+          <el-date-picker v-model="followRemindDate" type="date" placeholder="选择日期"></el-date-picker>
+        </el-col>
+        <el-col :span="4">
+          提醒备注
+        </el-col>
+        <el-col :span="15">
+          <div class="remind-editor">
+            富文本
+          </div>
+        </el-col>
+        <el-col :span="24">
+          <upload-file :fileList="fileList" @success="uploadSuccess" @remove="removeFile" ></upload-file>
+        </el-col>
+      </el-row>
+      <span slot="footer">
+        <el-button type="primary">提交</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import echarts from 'echarts'
+import uploadFile from '@/components/uploadFile/uploadFile'
 export default {
   name: 'customerInfor',
+  components: {
+    uploadFile
+  },
   data() {
     return {
+      activeName: 'five',
       feedbackDialog: false, // 投诉dialog
       getAccountDialog: false, // 获取客服账号dialog
       compactPassDialog: false, // 合同是否通过dialog
       compactApplyDialog: false, // 合同调取申请dialog
       compactOrderDialog: false, // 查看合同订单dialog
+      maintainOrderDialog: false, // 查看维护工单dialog
+      followRecordDialog: false, // 添加跟进记录dialog
+      followRemindDialog: false, // 下次跟进提醒dialog
       compactOrderNOteStatus: false, // 合同订单备注编辑状态
       compactQueations: '', // 合同未通过的问题描述
       compactApply: '', // 合同申请原因说明
       compactOrderNOtes: '', // 合同订单备注
+      tagDialog: false, // 客户标签dialog
+      followRemindDate: '', // 下次跟进提醒日期
       fileList: [],
       domainTableData: [{
         name: '180.12.125.56',
@@ -234,7 +494,22 @@ export default {
       compactTableData: [{
         name: '180.12.125.56',
         date: '2018-12-12'
-      }]
+      }],
+      serviceTableData: [{
+        name: '180.12.125.56',
+        date: '2018-12-12'
+      }],
+      workOrderTableData: [{
+        name: '180.12.125.56',
+        date: '2018-12-12'
+      }],
+      followRecordTableData: [{
+        name: '180.12.125.56',
+        date: '2018-12-12'
+      }],
+      followRecordForm: {
+        region: ''
+      }
     }
   },
   methods: {
@@ -278,12 +553,45 @@ export default {
         }
       })
     },
+    gotoInsertWorkOrder() {
+      this.$router.push({
+        path: '/customer/maintainOrderInsert'
+      })
+    },
     changeOrderNotes() {
       this.compactOrderNOteStatus = true
+    },
+    uploadSuccess(fileList) {
+      this.fileList = fileList
+    },
+    removeFile(val) {
+      this.fileList.splice(val, 1)
+    },
+    drawLine() {
+      // 基于准备好的dom，初始化echarts实例
+      this.chart = echarts.init(document.getElementById('service-echarts'))
+      this.chart.clear()
+      // 绘制图表
+      this.chart.setOption(
+        {
+          xAxis: {
+            type: 'category',
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [{
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line'
+          }]
+        }
+      )
     }
   },
   mounted() {
     console.log(this.$route)
+    this.drawLine()
   }
 }
 </script>
@@ -441,6 +749,100 @@ export default {
   }
   &>p{
     clear: both;
+  }
+}
+.service-message{
+  &>p{
+    margin-bottom: 20px;
+  }
+  .my-table{
+    width: 50%;
+    float: left;
+    .title{
+      background-color: #eee;
+      color: #666;
+      height: 40px;
+      line-height: 40px;
+      padding: 0 10px;
+      font-size: 14px;
+      span{
+        margin-right: 10px;
+      }
+    }
+    .el-table{
+      margin-bottom: 20px;
+    }
+  }
+  .my-echart{
+    float: right;
+    width: 50%;
+    #service-echarts{
+      width: 100%;
+      height: 300px;
+    }
+  }
+  .tag {
+    float: right;
+    height: 40px;
+    border: 1px solid #ddd;
+    line-height: 40px;
+    border-radius: 5px;
+    padding: 0 10px;
+    cursor: pointer;
+    h5 {
+      float: left;
+      height: 100%;
+      font-size: 14px;
+      color: #666;
+    }
+    li {
+      float: left;
+      width: 70px;
+      height: 100%;
+      text-align: center;
+      font-size: 14px;
+    }
+  }
+  .tag-dialog{
+    height: 200px;
+    li{
+      width: 110px;
+      height: 40px;
+      border-radius: 40px;
+      border: 1px solid #eee;
+      line-height: 40px;
+      text-align: center;
+      font-size: 13px;
+      float: left;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      &.active{
+        background-color: #6699ff;
+        color: #fff;
+      }
+    }
+  }
+}
+.maintain-order-dialog{
+  .el-col{
+    margin-bottom: 10px;
+  }
+  .el-col-8{
+    font-size: 16px;
+  }
+}
+.follow-remind-dialog{
+  .el-col-4{
+    font-size: 16px;
+    line-height: 40px;
+  }
+  .el-col{
+    margin-bottom: 10px;
+  }
+  .remind-editor{
+    background-color: #eee;
+    height: 150px;
   }
 }
 </style>
