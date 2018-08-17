@@ -168,6 +168,42 @@ export const constantRouterMap = [
         meta: { title: '新增维护工单' },
         component: () => import('@/views/customer/maintainOrderInsert')
         // hidden: true
+      },
+      {
+        path: 'maintainOrder',
+        name: 'maintainOrder',
+        meta: { title: '维护工单列表' },
+        component: () => import('@/views/customer/maintainOrder')
+      },
+      {
+        path: 'dispatchCustomer',
+        name: 'dispatchCustomer',
+        meta: { title: '批量分配客户' },
+        component: () => import('@/views/customer/dispatchCustomer')
+      },
+      {
+        path: 'compactApprove',
+        name: 'compactApprove',
+        meta: { title: '合同调取审批' },
+        component: () => import('@/views/customer/compactApprove')
+      },
+      {
+        path: 'customerTag',
+        name: 'customerTag',
+        meta: { title: '客户标签设置' },
+        component: () => import('@/views/customer/customerTag')
+      },
+      {
+        path: 'serviceTable',
+        name: 'serviceTable',
+        meta: { title: '服务表' },
+        component: () => import('@/views/customer/serviceTable')
+      },
+      {
+        path: 'maintainOrderType',
+        name: 'maintainOrderType',
+        meta: { title: '维护工单类型' },
+        component: () => import('@/views/customer/maintainOrderType')
       }
     ]
   },
