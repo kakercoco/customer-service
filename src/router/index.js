@@ -209,18 +209,18 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/count',
+    path: '/online',
     component: Layout,
-    redirect: '/count/index',
-    meta: { title: '统计报表', icon: 'count' },
-    name: 'count',
+    redirect: '/online/IM',
+    meta: { title: '在线沟通', icon: 'count' },
+    name: 'online',
     alwaysShow: true,
     children: [
       {
-        path: 'index',
-        name: 'index',
-        meta: { title: '统计报表' },
-        component: () => import('@/views/count/index')
+        path: 'IM',
+        name: 'IM',
+        meta: { title: '在线客服' },
+        component: () => import('@/views/onlineChat/IM')
       }
     ]
   },
@@ -262,17 +262,11 @@ export const constantRouterMap = [
   {
     path: '/setting',
     component: Layout,
-    redirect: '/setting/IM',
+    redirect: '/setting/index',
     meta: { title: '系统设置', icon: 'setting' },
     name: 'setting',
     alwaysShow: true,
     children: [
-      {
-        path: 'IM',
-        name: 'IM',
-        meta: { title: '在线客服' },
-        component: () => import('@/views/setting/IM')
-      },
       {
         path: 'index',
         name: 'userIM',

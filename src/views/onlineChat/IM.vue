@@ -2,7 +2,7 @@
  * @Author: kaker.xutianxing 
  * @Date: 2018-08-07 09:36:29 
  * @Last Modified by: kaker.xutianxing
- * @Last Modified time: 2018-08-09 17:23:43
+ * @Last Modified time: 2018-08-17 18:39:17
  */
 <template>
   <div class="IM">
@@ -102,7 +102,7 @@
             <svg-icon icon-class="file"></svg-icon>
             <svg-icon icon-class="image"></svg-icon>
             <svg-icon icon-class="link"></svg-icon>
-            <el-button type="primary" class="fr" size="small">记录问题</el-button>
+            <el-button type="primary" class="fr" size="small" @click="recordQuestionDialog = true">记录问题</el-button>
           </div>
           <div class="content">
             <el-input resize="none" type="textarea" :rows="5" placeholder="请输入内容" v-model="textarea">
@@ -117,21 +117,16 @@
     <div class="IM-right">
       <p class="btn">
         <el-button type="primary" size="small">接入</el-button>
-        <el-button type="primary" size="small">请求协助</el-button>
+        <el-button type="primary" size="small" @click="requestHelpDialog = true">请求协助</el-button>
         <el-button type="primary" size="small" @click="dialogSetting = true">设置状态</el-button>
       </p>
-      <el-dialog title="设置"  :visible.sync="dialogSetting"  width="560px"  :before-close="settingClose">
+      <el-dialog title="设置" :visible.sync="dialogSetting" width="560px" :before-close="settingClose">
         <el-form :model="settingForm" class="setting-from" :rules="settingFormRules">
           <el-form-item label="客服名称：" :label-width="formLabelWidth" prop="name">
             <el-input v-model="settingForm.name" auto-complete="off" placeholder="请输入客服名称"></el-input>
           </el-form-item>
           <el-form-item label="头像：" :label-width="formLabelWidth">
-            <el-upload
-              class="avatar-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload">
+            <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
               <img v-if="imageUrl" :src="imageUrl" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               <div slot="tip" class="el-upload__tip">支持jpg，jpeg，png，大小不超过100KB</div>
@@ -151,62 +146,157 @@
         </div>
         <div class="tabs">
           <p class="tab">
-            <span class="active">客户信息</span>
-            <span>订单信息</span>
-            <span>跟进记录</span>
+            <span v-for="(item, index) in customerMessage" :key="index" @click="changeTab(item)" :class="{active: item===activeTab}">{{item}}</span>
           </p>
           <el-button type="primary" class="fr">更多</el-button>
         </div>
-        <ul>
-          <li>
-            <span> 客户标识：</span>金牌客户</li>
-          <li>
-            <span> 公司名称：</span>珍岛信息技术（上海）有限公司</li>
-          <li>
-            <span> 公司地址：</span>上海市虹口区水电路682号天虹商务大厦6F/7F/16F/17F</li>
-          <li>
-            <span> 行业： </span>零售/批发</li>
-        </ul>
-        <ul>
-          <li>
-            <span>受理商务：</span>张芳</li>
-          <li>
-            <span>商务手机：</span>13012345678</li>
-          <li>
-            <span>商务邮箱：</span>4523655@qq.com</li>
-          <li>
-            <span>商务微信：</span>123466222</li>
-          <li>
-            <span>所在部门：</span>商务部</li>
-        </ul>
-        <ul>
-          <li>
-            <span>受理客服：</span>唐芳芳</li>
-          <li>
-            <span>客服手机：</span>13012345678</li>
-          <li>
-            <span>客服邮箱：</span>4523655@qq.com</li>
-          <li>
-            <span>客服微信：</span>123466222</li>
-          <li>
-            <span>所在部门：</span>客服部</li>
-        </ul>
-        <ul>
-          <li>联系人1： 杨世双</li>
-          <li>手机： 18918178001</li>
-          <li>邮箱： young.yang@71360.com</li>
-          <li>QQ： </li>
-          <li>微信：</li>
-        </ul>
-        <ul>
-          <li>联系人1： 杨帅</li>
-          <li>手机： 18918178001</li>
-          <li>邮箱： young.yang@71360.com</li>
-          <li>QQ： </li>
-          <li>微信：</li>
-        </ul>
+        <div v-if="activeTab ==='客户信息'">
+          <ul>
+            <li>
+              <span> 客户标识：</span>金牌客户</li>
+            <li>
+              <span> 公司名称：</span>珍岛信息技术（上海）有限公司</li>
+            <li>
+              <span> 公司地址：</span>上海市虹口区水电路682号天虹商务大厦6F/7F/16F/17F</li>
+            <li>
+              <span> 行业： </span>零售/批发</li>
+          </ul>
+          <ul>
+            <li>
+              <span>受理商务：</span>张芳</li>
+            <li>
+              <span>商务手机：</span>13012345678</li>
+            <li>
+              <span>商务邮箱：</span>4523655@qq.com</li>
+            <li>
+              <span>商务微信：</span>123466222</li>
+            <li>
+              <span>所在部门：</span>商务部</li>
+          </ul>
+          <ul>
+            <li>
+              <span>受理客服：</span>唐芳芳</li>
+            <li>
+              <span>客服手机：</span>13012345678</li>
+            <li>
+              <span>客服邮箱：</span>4523655@qq.com</li>
+            <li>
+              <span>客服微信：</span>123466222</li>
+            <li>
+              <span>所在部门：</span>客服部</li>
+          </ul>
+          <ul>
+            <li>联系人1： 杨世双</li>
+            <li>手机： 18918178001</li>
+            <li>邮箱： young.yang@71360.com</li>
+            <li>QQ： </li>
+            <li>微信：</li>
+          </ul>
+          <ul>
+            <li>联系人1： 杨帅</li>
+            <li>手机： 18918178001</li>
+            <li>邮箱： young.yang@71360.com</li>
+            <li>QQ： </li>
+            <li>微信：</li>
+          </ul>
+        </div>
+        <div v-else-if="activeTab === '订单信息'">
+          <ul>
+            <li>
+              <span>合同编号：</span>Z-56454621333</li>
+            <li>
+              <span>合同类型：</span>撒地方</li>
+            <li>
+              <span>合同金额：</span>￥34000.00</li>
+            <li>
+              <span>合同状态：</span>零售/批发</li>
+            <li>
+              <span>合同签订时间：</span>2018-07-31</li>
+            <li>
+              <span>合同到期时间：</span>2018-07-31</li>
+          </ul>
+          <ul>
+            <li>
+              <span>用户名：  </span>zhendao12321333</li>
+            <li>
+              <span>激活码：  </span>3256j</li>
+            <li>
+              <span>注册手机：</span>130123456780</li>
+            <li>
+              <span>订单编号：</span>466985546363555</li>
+            <li>
+              <span>订单金额：</span>￥56000.00</li>
+            <li>
+              <span>版本：    </span>V3.0</li>
+            <li>
+              <span>购买数量：</span>2</li>
+            <li>
+              <span>年限：    </span>3</li>
+            <li>
+              <span>购买日期：</span>2018-07-31</li>
+            <li>
+              <span>激活日期：</span>2018-07-31</li>
+            <li>
+              <span>代理商：  </span></li>
+          </ul>
+        </div>
+        <div v-else>
+          <ul>
+            <li>
+              <span>创建人：  </span>Z-王帅帅</li>
+            <li>
+              <span>是否客服：</span>是</li>
+            <li>
+              <span>跟进目的：</span></li>
+            <li>
+              <span>联系人：  </span>杨帅</li>
+            <li>
+              <span>跟进内容：</span>签合同.......</li>
+            <li>
+              <span>跟进类型：</span></li>
+            <li>
+              <span>跟进方式：</span></li>
+            <li>
+              <span>创建日期：</span>2018-07-31</li>
+          </ul>
+        </div>
       </div>
     </div>
+    <el-dialog :visible.sync="requestHelpDialog" title="请求协助">
+      <el-table :data="helpTableData">
+        <el-table-column align="center" prop="name" label="组名"></el-table-column>
+        <el-table-column align="center" prop="name" label="客服总监"></el-table-column>
+        <el-table-column align="center" prop="name" label="组长"></el-table-column>
+        <el-table-column align="center" prop="name" label="组员"></el-table-column>
+        <el-table-column align="center" prop="name" label="状态">
+          <template slot-scope="scoped">
+            <el-button size="mini" v-if="true" type="success">在线</el-button>
+            <el-button size="mini" v-else-if="false" type="danger">忙碌</el-button>
+            <el-button size="mini" v-else type="info">离线</el-button>
+          </template> size="mini"
+        </el-table-column>
+        <el-table-column align="center" prop="name" label="操作">
+          <template slot-scope="scoped">
+            <el-button type="primary" size="mini">请求</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <span slot="footer">
+        <el-button type="primary">确定</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog :visible.sync="recordQuestionDialog" width="560px">
+      <el-row>
+        <el-col :span="5">问题内容：</el-col>
+        <el-col :span="16">
+          <el-input type="textarea" v-model="recordQuestion"></el-input>
+        </el-col>
+      </el-row>
+      <span slot="footer">
+        <el-button @click="recordQuestionDialog = false">取消</el-button>
+        <el-button type="primary">保存</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -218,8 +308,16 @@ export default {
       keywords: '', // 常用语关键词
       textarea: '', // 文本内容
       dialogSetting: false, // 设置状态dialog
+      requestHelpDialog: false, // 请求协助dialog
+      recordQuestionDialog: false, // 记录问题dialog
+      recordQuestion: '', // 记录问题内容
       formLabelWidth: '100px',
       imageUrl: '', // 用户头像
+      customerMessage: ['客户信息', '订单信息', '跟进记录'],
+      activeTab: '客户信息', // 右侧信息tab页
+      helpTableData: [{
+        name: '20181-12-1'
+      }],
       settingForm: {
         name: ''
       },
@@ -287,6 +385,9 @@ export default {
     settingClose() {
       this.dialogSetting = false
     },
+    changeTab(item) {
+      this.activeTab = item
+    },
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg'
       const isLt2M = file.size / 1024 / 1024 < 2
@@ -304,8 +405,8 @@ export default {
     },
     pushChat() {
       var speaktoDto = {
-        'dialogId': '38',
-        'content': this.textarea
+        dialogId: '38',
+        content: this.textarea
       }
       const wm = this.Global.socketCmd('SpeakToDialog', speaktoDto)
       window.webSocket.send(wm)
@@ -313,7 +414,7 @@ export default {
   },
   mounted() {
     // window.webSocket.send('123')
-    window.webSocket.joinDialog()
+    // window.webSocket.joinDialog()
   },
   destroyed() {
     // this.websock.close() // 离开路由之后断开websocket连接
@@ -386,8 +487,8 @@ export default {
       height: calc(100% - 40px);
       overflow: auto;
     }
-    .setting-from{
-      .el-input{
+    .setting-from {
+      .el-input {
         width: 300px;
       }
       & /deep/ .avatar-uploader .el-upload {
@@ -398,7 +499,7 @@ export default {
         overflow: hidden;
       }
       .avatar-uploader .el-upload:hover {
-        border-color: #409EFF;
+        border-color: #409eff;
       }
       .avatar-uploader-icon {
         font-size: 28px;
